@@ -1,6 +1,9 @@
 local wezterm = require "wezterm"
 local act = wezterm.action
 
+local is_darwin = wezterm.target_triple:find("darwin", 1, true) ~= nil
+local xonsh_path = is_darwin and "/opt/homebrew/bin/xonsh" or "/home/stuart/.local/bin/xonsh"
+
 local function is_opencode_pane(pane)
   local title = pane:get_title() or ""
   if title:match("^OC%s*|") then
@@ -36,6 +39,7 @@ wezterm.on("format-tab-title", function(tab, _, _, _, _, max_width)
 end)
 
 return {
+  default_prog = { xonsh_path, "-l" },
   font = wezterm.font_with_fallback {
     "FiraCode Nerd Font Mono",
     "Noto Color Emoji",
