@@ -2,8 +2,6 @@
   "$schema": "https://opencode.ai/config.json",
   "default_agent": "plan",
   "agent": {
-    "plan": { "mode": "primary" },
-    "build": { "mode": "primary" },
     "product-manager": { "mode": "primary" },
     "tech-lead": { "mode": "primary" },
     "code-reviewer": {"mode": "primary"},
