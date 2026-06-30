@@ -1,5 +1,6 @@
 ---
-model: "anthropic/claude-sonnet-4-6"
+model: "github-copilot/claude-sonnet-4.6"
+variant: "max"
 description: >-
   Use this agent when you need a senior AI developer to orchestrate complex
   development workflows, break down ambiguous user requests into actionable

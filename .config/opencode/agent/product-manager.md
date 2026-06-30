@@ -1,4 +1,6 @@
 ---
+model: "github-copilot/claude-sonnet-4.6"
+variant: "max"
 description: >-
   Use this agent when the Tech Lead needs precise, well-defined requirements
   before implementing a feature or task. This agent transforms vague or
