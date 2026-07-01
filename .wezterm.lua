@@ -27,8 +27,53 @@ end
 
 wezterm.on("format-tab-title", function(tab, _, _, _, _, max_width)
   local pane = tab.active_pane
+
+  local raw = tab.tab_title
+  if raw and #raw > 0 then
+    local status, rest = raw:match("^%[oc:(%w+)%]%s*(.*)")
+    if status then
+      rest = rest:gsub("^OC%s*|%s*", "")
+      if rest == "" then rest = "opencode" end
+
+      local title_width = math.max(1, max_width - 4)
+      rest = wezterm.truncate_right(rest, title_width)
+      rest = wezterm.pad_right(rest, title_width)
+
+      if status == "working" then
+        return {
+          { Foreground = { Color = "#4FA3FF" } },
+          { Text = " ● " },
+          "ResetAttributes",
+          { Text = rest },
+        }
+      elseif status == "done" then
+        return {
+          { Foreground = { Color = "#22C55E" } },
+          { Text = " ✓ " },
+          "ResetAttributes",
+          { Text = rest },
+        }
+      elseif status == "error" then
+        return {
+          { Foreground = { Color = "#EF4444" } },
+          { Text = " ✗ " },
+          "ResetAttributes",
+          { Text = rest },
+        }
+      elseif status == "waiting" then
+        return {
+          { Foreground = { Color = "#F59E0B" } },
+          { Text = " ⏸ " },
+          "ResetAttributes",
+          { Text = rest },
+        }
+      end
+    end
+  end
+
   local title = pane and pane.title or "shell"
 
+  title = title:gsub("^%d+:", "")
   title = title:gsub("^OC%s*|%s*", "")
   if title == "" then
     title = "shell"
